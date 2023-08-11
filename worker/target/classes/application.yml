@@ -5,27 +5,27 @@ spring:
   application:
     name: worker
 
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: solverequations@gmail.com
-#    password: exykafucbxmxycet
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: challenglishua@gmail.com
+    password: bazefjaaqavxdhyl
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/solequat
+    url: jdbc:postgresql://localhost:5432/challenglish
     username: postgres
     password: this1pass
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
