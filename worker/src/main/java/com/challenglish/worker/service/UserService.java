@@ -1,5 +1,11 @@
 package com.challenglish.worker.service;
 
+import java.security.Principal;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.challenglish.worker.dto.UserDTO;
+import com.challenglish.worker.dto.UserProfileDTO;
 import com.challenglish.worker.entity.User;
 
 public interface UserService {
@@ -8,4 +14,5 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
+    UserDTO updateUser(User user, UserProfileDTO newUser);
 }

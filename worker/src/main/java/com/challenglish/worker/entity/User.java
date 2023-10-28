@@ -1,13 +1,17 @@
 package com.challenglish.worker.entity;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -46,6 +50,13 @@ public class User implements UserDetails {
 
     @Builder.Default
     private Boolean isActive = false;
+
+    @CreatedDate
+    @Column(name="create_date_time",  nullable=false, unique=false)
+    private LocalDateTime createDateTime;
+    @LastModifiedDate
+    @Column(name="update_date_time",  nullable=true, unique=false)
+    private LocalDateTime updateDateTime;
 
     @Override public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

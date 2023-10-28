@@ -30,6 +30,13 @@ spring:
             - Path=/api/v1/registration/authenticate
             - Method=POST
 
+        - id: updateUser
+          uri: lb://worker
+          predicates:
+            - Path=/api/v1/account/profile
+            - Method=PUT
+
+
       globalcors:
         add-to-simple-url-handler-mapping: true
         corsConfigurations:

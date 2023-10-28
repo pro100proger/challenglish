@@ -64,6 +64,8 @@ public class AuthenticationService {
             .email(request.getEmail())
             .password(passwordEncoder.encode(request.getPassword()))
             .role(Role.USER)
+            .createDateTime(LocalDateTime.now())
+            .updateDateTime(LocalDateTime.now())
             .build();
         userRepository.save(user);
 
