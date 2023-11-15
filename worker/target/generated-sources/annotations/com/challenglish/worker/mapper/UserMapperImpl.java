@@ -54,7 +54,7 @@ public class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public User updateProfile(User userFromDb, UserProfileDTO userProfileDTO) {
+    public User updateUser(User userFromDb, UserProfileDTO userProfileDTO) {
         if ( userProfileDTO == null ) {
             return userFromDb;
         }

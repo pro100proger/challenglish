@@ -13,5 +13,5 @@ import com.challenglish.worker.entity.User;
 public interface UserMapper {
 
     UserDTO entityToDto(User user);
-    User updateProfile(@MappingTarget User userFromDb, UserProfileDTO userProfileDTO);
+    User updateUser(@MappingTarget User userFromDb, UserProfileDTO userProfileDTO);
 }

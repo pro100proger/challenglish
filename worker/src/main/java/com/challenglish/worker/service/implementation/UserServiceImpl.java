@@ -1,11 +1,9 @@
 package com.challenglish.worker.service.implementation;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.challenglish.worker.dto.UserDTO;
@@ -16,7 +14,6 @@ import com.challenglish.worker.service.UserService;
 import com.challenglish.worker.entity.User;
 
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -51,12 +48,13 @@ public class UserServiceImpl implements UserService {
         if (!isPresentButMe) {
             userRepository.findByEmail(newUser.getEmail()).ifPresent(
                 user_ -> {
-                    throw new RuntimeException("Exeption!!!");
+                    throw new RuntimeException(
+                        String.format("Email %s is already taken by another user.", newUser.getEmail()));
                 }
             );
         }
 
-        userMapper.updateProfile(user, newUser);
+        userMapper.updateUser(user, newUser);
         user.setUpdateDateTime(LocalDateTime.now());
         userRepository.save(user);
 

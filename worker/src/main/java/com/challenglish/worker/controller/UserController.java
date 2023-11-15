@@ -2,7 +2,6 @@ package com.challenglish.worker.controller;
 
 import java.security.Principal;
 
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<UserDTO> updateProfile(Principal principal,
+    public ResponseEntity<UserDTO> updateUser(Principal principal,
         @RequestBody UserProfileDTO newUser) {
         User user = userService.findUserByEmail(principal.getName());
         log.info(String.format("Controller: updating user with id %s", user.getId()));
