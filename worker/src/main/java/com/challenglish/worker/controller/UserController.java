@@ -1,8 +1,8 @@
 package com.challenglish.worker.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +16,7 @@ import com.challenglish.worker.dto.UserProfileDTO;
 import com.challenglish.worker.entity.User;
 import com.challenglish.worker.service.UserService;
 
+import jakarta.mail.SendFailedException;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -31,8 +32,8 @@ public class UserController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<UserDTO> updateProfile(Principal principal,
-        @RequestBody UserProfileDTO newUser) {
+    public ResponseEntity<UserDTO> updateUser(Principal principal,
+        @RequestBody UserProfileDTO newUser) throws SendFailedException, IOException {
         User user = userService.findUserByEmail(principal.getName());
         log.info(String.format("Controller: updating user with id %s", user.getId()));
 
