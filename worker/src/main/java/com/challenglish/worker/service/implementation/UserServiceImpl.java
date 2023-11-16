@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
 
         StringBuilder email = new StringBuilder();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("worker/src/main/resources/templates/email.html"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("worker/src/main/resources/templates/confirmationLetterChangeEmail.html"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 email.append(line).append(System.lineSeparator());

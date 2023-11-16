@@ -140,7 +140,7 @@ public class AuthenticationService {
 
         StringBuilder email = new StringBuilder();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("worker/src/main/resources/templates/email.html"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("worker/src/main/resources/templates/emailConfirmationLetter.html"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 email.append(line).append(System.lineSeparator());
