@@ -1,10 +1,10 @@
 package com.challenglish.worker.authentication;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.time.format.TextStyle;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +21,6 @@ import com.challenglish.worker.repository.UserRepository;
 import com.challenglish.worker.service.ConfirmationTokenService;
 import com.challenglish.worker.service.EmailSenderService;
 import com.challenglish.worker.service.UserService;
-import com.google.common.io.Files;
 
 import jakarta.mail.SendFailedException;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +39,7 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private  final AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
     private final ConfirmationTokenService confirmationTokenService;
     private final UserService userService;
     private final EmailSenderService emailSender;
@@ -112,7 +111,7 @@ public class AuthenticationService {
         }
 
         confirmationTokenService.setConfirmedAt(token);
-        userService.enableUser(
+        userService.activateUser(
             confirmationToken.getUser().getEmail());
 
         return LOGIN_ROUTE;
@@ -136,13 +135,17 @@ public class AuthenticationService {
     }
 
     private String buildEmail(String link) throws IOException {
-        String date = "\n" + LocalDateTime.now().getMonth().getDisplayName(TextStyle.FULL, Locale.US)
-            + " " + LocalDateTime.now().getDayOfMonth()
-            + ", " + LocalDateTime.now().getYear();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
+        String date = "\n" + LocalDateTime.now().format(formatter);
 
-        StringBuilder email = new StringBuilder(Files
-            .asCharSource(new File("worker/src/main/resources/templates/email.html"), StandardCharsets.UTF_8)
-            .read());
+        StringBuilder email = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("worker/src/main/resources/templates/email.html"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                email.append(line).append(System.lineSeparator());
+            }
+        }
 
         email
             .insert(email.indexOf("Project") + 3, date)
